@@ -1,0 +1,211 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    overflow-x: hidden;
+
+}   
+ 
+
+
+
+
+.grid-navbar {
+    display: grid;
+    grid-template-columns: 10% 25% 40% 25%;
+    grid-template-rows: 100px;
+    justify-content: center;
+    background-color: wheat;
+
+
+}
+
+
+
+
+.grid-body {
+    display: grid;
+    gap: 35px;
+    row-gap: 35px;
+    grid-template-columns: 20% 26% 26% 26%;
+    grid-auto-rows: 240px;
+}
+
+
+
+
+
+
+
+
+
+
+
+a {
+    text-decoration: none;
+    color: black !important;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+
+
+
+h1 h2 h3 h4 h5 h6 {
+    font-family: 'Poppins', sans-serif;
+    line-height: 2em;
+}
+
+
+.navbar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid black;
+    flex-wrap: wrap;
+}
+
+
+
+.navbar-link:hover {
+    transform: translate(-3px) scale(1.1) rotate(360deg);
+    cursor: crosshair;
+}
+
+
+.navbar-logo {
+    background-color: brown;
+}
+
+
+
+.navbar-link {
+    margin-left: 75px;
+    transition: all 500ms;
+    font-family: 'Abel', sans-serif;
+    
+}
+
+
+
+
+
+
+.navbar-navigation {
+    background-color: wheat;
+}
+
+.logo {
+    font-family: 'Abel', sans-serif;
+}
+
+
+
+.main-section {
+    background-color: #F5B700;
+}
+
+
+
+
+
+.box {
+    margin-top: 50px;
+    text-align: left;
+    width: 325px;
+    height: auto !important;
+    background-color: #CDFCF6;
+    border-radius: 5px;
+    transition: all 300ms;
+    margin-left: 100px;
+}
+
+
+
+.box-header {
+    padding-top: 15px;
+    padding-left: 25px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+.box-text {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-left: 25px;  
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.box:hover {
+    background-color: #98A8F8;
+    transform: translate(-10px) scale(1.1) rotate(360deg);
+}
+
+
+.box-button {
+    background-color: #FAF7F0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 30px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.3rem;
+}
+
+.fafa-style {
+    transform: translateY(6px) translateX(8px);
+}
+
+
+.box-padding {
+    padding-bottom:100px;
+}
+
+
+
+.image-styling {
+    width: 300px;
+    height: 300px;
+    border-radius: 243px;
+    transform: translateX(150px);
+    object-fit: cover;
+    padding-left: 100px;
+    padding-top: 50px;
+    transition: all 501500ms ease-out;
+}
+
+
+
+
+.image-styling:hover {
+    transform: scale(1.1) rotate(360deg);
+    border-radius: 5px;
+}
+
+
+
+.footer-body {
+    background-color: #CDFCF6;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.3rem;
+    text-align:center;
+    padding: 50px 0 50px 0;
+    border: solid 2px black;
+}
+
