@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
       }
     });
   } else{
-    res.render("notloggedin.html");
+    res.render("login.html");
   }
 });
 
@@ -147,3 +147,21 @@ if(loggedIn == "true"){
 app.listen(port, () => {
   console.log("server started");
 })
+app.get('/ban', async (request, response) => {
+if(loggedIn == "true"){
+   banned_user = prompt('What is there username?');
+   number_enter = prompt('Enter a number from 1-10000');
+   if (number_enter == process.env.adminenternumber){
+     db.delete(banned_user).then(() => {});
+   }
+   else{
+     response.send("You can't ban someone else. You are banned for 24 hours");
+   }
+  }
+});
+app.get('/makeacc', async (request, response) => {
+username = prompt('What is the username: ');
+password = prompt('What is the password: ')
+db.set(username,password).then(() => {});
+response.send('New account made')
+});
