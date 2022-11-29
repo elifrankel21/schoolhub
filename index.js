@@ -11,6 +11,7 @@ app.set('view engine', 'html');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 port = process.env.port || 5000;
+
 function ErrCheck(err,res) {
   if (err) {
     console.log('Server Err',err);
@@ -26,7 +27,8 @@ app.get("/", (req, res) => {
     db.list().then(keys => {
       if(keys.includes(username)){
         res.render("loggedin.html",{username:username})
-      } else{
+      }
+      else{
         res.redirect("/logout");
       }
     });
@@ -75,7 +77,13 @@ app.post("/loginsubmit", (req, res) => {
     }
   });
 });
-
+app.get("/ban", (req, res) => {
+  usernametoban = prompt('What user do you want to ban: ')
+  db.delete(usernametoban).then(() => {});
+  if (username == usernametoban){
+    res.cookie('Banned', 'true')
+  }
+});
 app.post("/createaccount", (req, res) => {
   ErrCheck();
   var newusername = req.body.newusername;
@@ -148,7 +156,7 @@ app.listen(port, () => {
   console.log("server started");
 })
 app.get('/ban', async (request, response) => {
-if(loggedIn == "true"){
+  if(loggedIn == "true"){
    banned_user = prompt('What is there username?');
    number_enter = prompt('Enter a number from 1-10000');
    if (number_enter == process.env.adminenternumber){
