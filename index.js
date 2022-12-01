@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const Database = require("@replit/database");
@@ -11,7 +12,6 @@ app.set('view engine', 'html');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 port = process.env.port || 5000;
-
 function ErrCheck(err,res) {
   if (err) {
     console.log('Server Err',err);
@@ -81,7 +81,7 @@ app.get("/ban", (req, res) => {
   usernametoban = prompt('What user do you want to ban: ')
   db.delete(usernametoban).then(() => {});
   if (username == usernametoban){
-    res.cookie('Banned', 'true')
+    res.cookie('Banned', 'True');
   }
 });
 app.post("/createaccount", (req, res) => {
@@ -147,29 +147,12 @@ if(loggedIn == "true"){
     response.send( await readFile('./games/astray.html', 'utf8') );
   }
 });
-app.get('/onetrickmage', async (request, response) => {
+app.get('/onetrickmage', async (req, res) => {
 if(loggedIn == "true"){
+    
     response.send( await readFile('./games/onetrickmage.html', 'utf8') );
   }
 });
 app.listen(port, () => {
   console.log("server started");
 })
-app.get('/ban', async (request, response) => {
-  if(loggedIn == "true"){
-   banned_user = prompt('What is there username?');
-   number_enter = prompt('Enter a number from 1-10000');
-   if (number_enter == process.env.adminenternumber){
-     db.delete(banned_user).then(() => {});
-   }
-   else{
-     response.send("You can't ban someone else. You are banned for 24 hours");
-   }
-  }
-});
-app.get('/makeacc', async (request, response) => {
-username = prompt('What is the username: ');
-password = prompt('What is the password: ')
-db.set(username,password).then(() => {});
-response.send('New account made')
-});

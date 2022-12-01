@@ -5,8 +5,22 @@
     
   </head>
 <html>
-  <head></head>
+  <head>
+  </head>
   <body>
+    <section class="top-container">
+        <div class="navbar-list">
+          <div class="navbar-element"><a class="logo">SchoolHub</a></div>
+          <div class="navbar-element">Login</div>
+          <div class="navbar-element">Signup</div>
+        </div>
+    </section>
+
+
+
+
+
+  
     <form action="/loginsubmit" method="post">
       <label>Username: </label><input name="username" required><br><br>
       <label>Password: </label><input type="password" name="password" required><br><br>
@@ -16,20 +30,60 @@
   <a href="/signup">Need A Account? Click Me</a>
 </html>
 <style>
-*{
-  text-align: center;
-  padding-bottom: 5px;
-  border-radius: 10px;
-   background: url('https://images.pexels.com/photos/14353715/pexels-photo-14353715.jpeg') no-repeat center center fixed; 
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300&display=swap');
+body {
+  background: url('https://images.pexels.com/photos/14353715/pexels-photo-14353715.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow-x: hidden;
+  text-align: center;
+  margin: 0px;
+  padding: 0px 0px 0px 0px;
 }
+
+.logo {
+  font-size: 1.7rem;
+  color: wheat;
+}
+
+  
+.navbar-element {
+    font-family: 'Anek Devanagari', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 500ms;
+
+  }
+
+.navbar-element:hover {
+  transform: translate(-1px) scale(1.05); 
+}
+
+
+.navbar-list {
+  display: grid;
+  margin-top: 50px;
+  margin-left: 25px;
+  grid-template-columns: repeat(5, 20vh);
+  grid-auto-rows: 50px;
+  justify-content: space-between;
+  outline-style: solid 1px black; 
+  align-items: center;
+}
+  
 input{
   background: white;
 }
-a{
+a {
   color: white;
+  text-decoration: none;
+}
+
+
+.top-container {
+  background-color: #202030;
 }
 </style>
