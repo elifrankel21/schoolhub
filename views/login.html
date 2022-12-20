@@ -11,26 +11,83 @@
     <section class="top-container">
         <div class="navbar-list">
           <div class="navbar-element"><a class="logo">SchoolHub</a></div>
-          <div class="navbar-element">Login</div>
+          <div class="navbar-element"></div>
           <div class="navbar-element">Signup</div>
         </div>
+    </section>
+    <section class="middle-container">
+      <div class="tv-screen">
+     <!--   <h1 class="tv-logo" id="logo">School Hub</h1> -->
+      </div>
+
+      
     </section>
 
 
 
 
 
-  
     <form action="/loginsubmit" method="post">
-      <label>Username: </label><input name="username" required><br><br>
-      <label>Password: </label><input type="password" name="password" required><br><br>
+      <label></label><input type="text" id = "username" name="username" placeholder="Username"required><br><br>
+      <label></label><input type="password" name="password" placeholder="Password"required><br><br>
       <input type="submit" value="Login">
     </form>
   </body>
-  <a href="/signup">Need A Account? Click Me</a>
 </html>
+  <!---
+let logo = document.getElementById("logo");
+   var current_margin = 0;
+   let l = window.screen.height;
+   let w = window.screen.width - 300;
+
+   var myVar = setInterval(spostaDiv, 30);
+   function spostaDiv() {
+     console.log(l);
+     if (current_margin == w) {
+       current_margin = 0 + "px";
+       logo.style.marginleft = current_margin;
+     } else {
+       logo.style.marginLeft = current_margin + "px";
+     }
+     current_margin += 10;
+   }
+  //
+  -->
 <style>
+  
+input[type=password] {
+  transition: width 0.4s ease-in-out;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+input[type=password]:focus {
+  width: 250px;
+  padding: 10px;
+}
+input[type=text] {
+  transition: width 0.4s ease-in-out;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+input[type=text]:focus {
+  width: 250px;
+  padding: 10px;
+}
+submit{
+  padding: 4px;
+}
+form{
+  margin-top: 50px;
+  vert-align: middle;
+}
 @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300&display=swap');
+h1 {
+  padding: 0;
+  margin: 0;
+}
+  
 body {
   background: url('https://images.pexels.com/photos/14353715/pexels-photo-14353715.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -54,19 +111,27 @@ body {
     font-weight: 700;
     color: white;
     font-size: 1.5rem;
-    transition: all 500ms;
+    transition: all 300ms;
 
   }
 
+h1 {
+  overflow-wrap: break-word;
+}
+  
 .navbar-element:hover {
   transform: translate(-1px) scale(1.05); 
 }
 
+.middle-container {
+  background-color: #F2F4F3;
+}
 
 .navbar-list {
   display: grid;
-  margin-top: 50px;
-  margin-left: 25px;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  padding-left: 25px;
   grid-template-columns: repeat(5, 20vh);
   grid-auto-rows: 50px;
   justify-content: space-between;
@@ -74,9 +139,6 @@ body {
   align-items: center;
 }
   
-input{
-  background: white;
-}
 a {
   color: white;
   text-decoration: none;

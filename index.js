@@ -1,23 +1,26 @@
 const express = require("express");
 const app = express();
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const Database = require("@replit/database");
 const db = new Database();
+const uuid = require('uuid')
 const { readFile } = require('fs').promises;
 const fs = require('fs');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-port = process.env.port || 5000;
+port = process.env.port || 4468;
+var moment = require('moment');
+let timestamp = moment().format('LLLL')
 function ErrCheck(err,res) {
   if (err) {
     console.log('Server Err',err);
     res.status(500).send("Internal Server Error");
   }
 }
+
 ErrCheck();
 app.get("/", (req, res) => {
   ErrCheck();
@@ -32,6 +35,13 @@ app.get("/", (req, res) => {
         res.redirect("/logout");
       }
     });
+  if (username === "eli") {
+    res.send("<h1>Hey! You have been banned from school hub there is no appeal have a good day! :)</h1>");
+    fs.appendFile('./logs/bannedusers.log', '\nBanned User tried to login:' + username + timestamp, function (err) {
+  if (err) throw err;
+  console.log('Updated!');
+});
+  }
   } else{
     res.render("login.html");
   }
@@ -46,15 +56,8 @@ app.get("/login", (req, res) => {
     res.render("login.html");
   }
 })
-
 app.get("/signup", (req, res) => {
-  ErrCheck();
-  loggedIn = req.cookies.loggedIn;
-  if(loggedIn == "true"){
-    res.redirect("/");
-  } else{
-    res.render("signup.html");
-  }
+
 });
 app.post("/loginsubmit", (req, res) => {
   ErrCheck();
@@ -77,13 +80,7 @@ app.post("/loginsubmit", (req, res) => {
     }
   });
 });
-app.get("/ban", (req, res) => {
-  usernametoban = prompt('What user do you want to ban: ')
-  db.delete(usernametoban).then(() => {});
-  if (username == usernametoban){
-    res.cookie('Banned', 'True');
-  }
-});
+
 app.post("/createaccount", (req, res) => {
   ErrCheck();
   var newusername = req.body.newusername;
@@ -108,8 +105,8 @@ app.post("/createaccount", (req, res) => {
       } else if(newpassword == ""){
         res.send("Please enter a password.")
       } else{
-        db.set(newusername, newpassword).then(() => console.log("new account created"));
-        res.cookie("loggedIn", "true")
+        db.set(newusername, newpassword).then(() => 
+        res.cookie("loggedIn", "true"));
         res.cookie("username", newusername);
         res.redirect("/");
       }
@@ -153,6 +150,36 @@ if(loggedIn == "true"){
     response.send( await readFile('./games/onetrickmage.html', 'utf8') );
   }
 });
+app.get('/removeuser', async (req, res) => {
+if(loggedIn == "true"){
+   var removeduser = prompt('What usernam do you wanna remove')
+   db.delete(removeduser).then(() => {});
+   function LogBan(err){
+  fs.appendFile('./logs/bannedusers.log', '\nNew Banned User ' + timestamp + ' ' + removeduser, function (err) {
+  if (err) throw err;
+  console.log('Banned!');
+});
+}
+   LogBan(removeduser);
+   res.send('User now banned' + removeduser)
+  }
+});
+app.get('/shutdown', async (req, res) => {
+  res.send('Shutting down the server...')
+  console.log('server shutdown')
+  app.set('Admin', 'True');
+  quit()
+})
 app.listen(port, () => {
   console.log("server started");
+})
+// server logs
+fs.appendFile('app.log', '\nServer Started:'+ timestamp + ' Log is 5 hours ahead', function (err) {
+  if (err) throw err;
+  console.log('Updated!');
+});
+app.get('/shutdown', async (req, res) => {
+  res.send('Shutting down the server...')
+  console.log('server shutdown')
+  quit()
 })
