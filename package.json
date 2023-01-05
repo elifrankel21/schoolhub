@@ -25,6 +25,7 @@
     "node-fetch": "^3.2.6",
     "nodemailer": "^6.8.0",
     "passport-cookie": "^1.0.9",
+    "ping": "^0.4.2",
     "uuid": "^9.0.0"
   }
 }
