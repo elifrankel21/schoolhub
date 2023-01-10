@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const Database = require("@replit/database");
 const db = new Database();
-const uuid = require('uuid')
 const { readFile } = require('fs').promises;
 const fs = require('fs');
 app.engine('html', require('ejs').renderFile);
@@ -14,41 +13,38 @@ app.use(bodyParser.urlencoded({extended: true}));
 port = process.env.port || 4468;
 var moment = require('moment');
 let timestamp = moment().format('LLLL')
+
 function ErrCheck(err,res) {
   if (err) {
     console.log('Server Err',err);
     res.status(500).send("Internal Server Error");
   }
 }
-
 ErrCheck();
 app.get("/", (req, res) => {
-  ErrCheck();
   loggedIn = req.cookies.loggedIn;
   username = req.cookies.username;
+  cookieupdate = res.cookie(`Seenupdate`,`false`);
+  if(cookieupdate == "false"){
+    alert("Hello and welcome to the new school hub it's very much the same but you will need to signup agian sadly. But it's now wayy faster to use school hub so have fun and enjoy.")
+    res.cookie(`Seenupdate`,`true`);
+  }
+  if (loggedIn == "false"){
+      res.render("login.html",{username:username})
+  }
   if(loggedIn == "true"){
     db.list().then(keys => {
       if(keys.includes(username)){
         res.render("loggedin.html",{username:username})
-      }
-      else{
+      } else{
         res.redirect("/logout");
       }
     });
-  if (username === "eli") {
-    res.send("<h1>Hey! You have been banned from school hub there is no appeal have a good day! :)</h1>");
-    fs.appendFile('./logs/bannedusers.log', '\nBanned User tried to login:' + username + timestamp, function (err) {
-  if (err) throw err;
-  console.log('Updated!');
-});
-  }
   } else{
     res.render("login.html");
   }
 });
-
 app.get("/login", (req, res) => {
-  ErrCheck();
   loggedIn = req.cookies.loggedIn;
   if(loggedIn == "true"){
     res.redirect("/");
@@ -56,11 +52,17 @@ app.get("/login", (req, res) => {
     res.render("login.html");
   }
 })
-app.get("/signup", (req, res) => {
 
+app.get("/signup", (req, res) => {
+  loggedIn = req.cookies.loggedIn;
+  if(loggedIn == "true"){
+    res.redirect("/");
+  } else{
+    res.render("signup.html");
+  }
 });
-app.post("/loginsubmit", (req, res) => {
-  ErrCheck();
+
+app.post("/loginsubmit", (req, res) => {;
   var username = req.body.username;
   var password = req.body.password;
   db.list().then(keys => {
@@ -82,7 +84,6 @@ app.post("/loginsubmit", (req, res) => {
 });
 
 app.post("/createaccount", (req, res) => {
-  ErrCheck();
   var newusername = req.body.newusername;
   newpassword = req.body.newpassword;
   letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -96,7 +97,6 @@ app.post("/createaccount", (req, res) => {
     }
   }
   if(goodusername){
-    ErrCheck();
     db.list().then(keys => {
       if(keys.includes(newusername)){
         res.send("Username taken.");
@@ -105,8 +105,8 @@ app.post("/createaccount", (req, res) => {
       } else if(newpassword == ""){
         res.send("Please enter a password.")
       } else{
-        db.set(newusername, newpassword).then(() => 
-        res.cookie("loggedIn", "true"));
+        db.set(newusername, newpassword).then(() => console.log("new account created"));
+        res.cookie("loggedIn", "true")
         res.cookie("username", newusername);
         res.redirect("/");
       }
